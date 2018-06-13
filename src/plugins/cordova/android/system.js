@@ -68,8 +68,8 @@ export default class System {
    * @param {number} maxSelec 最大选择数量
    * @param {number} width 宽度
    * @param {number} height 高度
-   * @param {function(string[])} successCallback 成功回调
-   * 传入参数为 照片的地址路径数组（文件路径数据  ["file://xxx/xx.png","file://xxx/xxx.png"]）
+   * @param {function(string)} successCallback 成功回调
+   * 传入参数为 照片的地址路径数组的字符串（文件路径数组字符串 "["file://xxx/xx.png","file://xxx/xxx.png"]"）
    * @param {Function} errorCallback 失败回调
    * @memberof System
    */
@@ -196,16 +196,18 @@ export default class System {
   }
 
   /**
-   * @typedef {OssFile} 单个文件对象
+   * @typedef {Object} OssFile
+   * @description 单个文件对象
    * @property {string} filePath 文件本地路径，如'/storage/emulated/0/Boohee/20170628nYafd3YTpW.png'
    * @property {string} ossPath 文件OSS路径，如'jhx/user/image/wrq_zj/20170628nYafd3YTpW.png'
    */
   /**
-   * @typedef {FileReq} 上传的请求对象
+   * @typedef {Object} FileReq
+   * @description 上传的请求对象
    * @property {string} bucket OSS容器id，如'xb-image'
    * @property {string} endpoint 节点名，如'oss-cn-qingdao.aliyuncs.com'
    * @property {string} ossFolder oss文件夹，如'jhx/user/image/wrq_zj/'
-   * @property {Array<OssFile>} files 文件对象数组
+   * @property {OssFile[]} files 文件对象数组
    */
   /**
    * 文件上传

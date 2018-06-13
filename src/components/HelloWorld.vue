@@ -13,12 +13,28 @@
 
 <script>
 /// <reference path="../plugins/nativePlugin.d.ts"/>
-import axios from 'axios'
-import { paramsToUrl } from '../util/util.js'
+// import axios from 'axios'
+// import { paramsToUrl } from '../util/util.js'
 export default {
   name: 'HelloWorld',
   mounted() {
+    this.$Common.then(common => {
+      common.share('莫失莫忘',
+        '仙四的老歌送给老哥',
+        'http://img1.imgtn.bdimg.com/it/u=1745875165,3906740002&fm=27&gp=0.jpg',
+        'http://test.jijiwuming.cn/test.html',
+        () => { console.log('分享成功') },
+        err => { console.dir(err) },
+        () => { console.log('取消分享') },
+        () => { console.log('完成分享') },
+        'AppMessage',
+        'music',
+        'http://test.jijiwuming.cn/test.mp3'
+      )
+    })
+    /*
     this.$WX.then(wx => {
+      // 选取卡券测试
       let queryObj = {
         timestamp: new Date().valueOf(),
         nonceStr: 'sduhi123',
@@ -36,7 +52,7 @@ export default {
           console.log('完成回调')
         })
       })
-      /*
+      // 收货地址测试
       wx.openAddress(res => {
         console.log('成功回调')
         console.dir(res)
@@ -46,8 +62,8 @@ export default {
       }, () => {
         console.log('完成回调')
       })
-      */
     })
+    */
   },
   data() {
     return {

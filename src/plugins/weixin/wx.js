@@ -192,12 +192,16 @@ export default class WX {
     })
   }
   /**
+   * @typedef {Object} WXLocalFile
+   * @property {string[]} localIds 本地id数组，localId可直接作为图片src
+   */
+  /**
    * 拍照或从手机相册中选图接口
    *
    * @param {Number} count 选区的图片数量，默认9
    * @param {String[]} sizeType 可以指定是原图还是压缩图，默认二者都有,如['original', 'compressed']
    * @param {String[]} sourceType 可以指定来源是相册还是相机，默认二者都有, 如['album', 'camera']
-   * @param {function(Object)} successCallback 返回类型为{localIds：[]},localIds选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+   * @param {function(WXLocalFile)} successCallback 返回类型为{localIds：[]},localIds选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
    * @param {function(Object)} errorCallback 失败回调返回错误信息，包含信息如 {"errMsg":"具体错误信息"}
    * @param {Function} completeCallback 接口调用完成时执行的回调函数，无论成功或失败都会执行
    * @memberof WX
@@ -296,7 +300,7 @@ export default class WX {
   }
   /**
    * 获取本地图片接口
-   * 此接口仅在 iOS WKWebview 下提供，用于兼容 iOS WKWebview 不支持 localId 直接显示图片的问题
+   * @description 此接口仅在 iOS WKWebview 下提供，用于兼容 iOS WKWebview 不支持 localId 直接显示图片的问题
    * @param {String} localId 图片的localID
    * @param {function(Object)} successCallback 返回类型为{localData: ''},localData是图片的base64数据，可以用img标签显示
    * @param {function(Object)} errorCallback 失败回调返回错误信息，包含信息如 {"errMsg":"具体错误信息"}
@@ -448,7 +452,7 @@ export default class WX {
     })
   }
   /**
-   * 上传语音接口,上传语音有效期3天
+   * 下载语音接口
    *
    * @param {String} serverId 需要下载的音频的服务器端ID，由uploadVoice接口获得
    * @param {Number} isShowProgressTips 是否显示进度提示,默认为1-显示
@@ -466,6 +470,31 @@ export default class WX {
   ) {
     this.wxapi.downloadVoice({
       serverId,
+      isShowProgressTips,
+      success: successCallback,
+      fail: errorCallback,
+      complete: completeCallback
+    })
+  }
+  /**
+   * 识别音频并返回识别结果接口
+   *
+   * @param {String} localId 需要识别的音频的本地Id，由录音相关接口获得
+   * @param {Number} isShowProgressTips 是否显示进度提示,默认为1-显示
+   * @param {function(Object)} successCallback 返回类型为{translateResult: ''},translateResult为语音识别的结果
+   * @param {function(Object)} errorCallback 失败回调返回错误信息，包含信息如 {"errMsg":"具体错误信息"}
+   * @param {Function} completeCallback 接口调用完成时执行的回调函数，无论成功或失败都会执行
+   * @memberof WX
+   */
+  translateVoice(
+    localId,
+    isShowProgressTips,
+    successCallback,
+    errorCallback,
+    completeCallback
+  ) {
+    this.wxapi.translateVoice({
+      localId,
       isShowProgressTips,
       success: successCallback,
       fail: errorCallback,
@@ -525,11 +554,17 @@ export default class WX {
     })
   }
   /**
+   * @typedef {Object} WXLocationInfo
+   * @property {string} latitude 纬度，浮点数，范围为90 ~ -90
+   * @property {string} longitude 经度，浮点数，范围为180 ~ -180
+   * @property {string} speed 速度，以米/每秒计
+   * @property {string} accuracy 位置精度
+   */
+  /**
    * 获取地理位置接口
    *
    * @param {String} type 坐标类型，默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-   * @param {function(Object)} successCallback 返回类型如{latitude:"30.203247",longitude:"120.197556",speed:"0.0",accuracy:"30.0"}
-   * @description latitude-纬度，浮点数，范围为90 ~ -90;longitude-经度，浮点数，范围为180 ~ -180;speed-速度，以米/每秒计;accuracy-位置精度
+   * @param {function(WXLocationInfo)} successCallback 返回类型如{latitude:"30.203247",longitude:"120.197556",speed:"0.0",accuracy:"30.0"}
    * @param {function(Object)} errorCallback 失败回调返回错误信息，包含信息如 {"errMsg":"具体错误信息"}
    * @param {Function} completeCallback 接口调用完成时执行的回调函数，无论成功或失败都会执行
    * @memberof WX

@@ -6,6 +6,7 @@ import Thirdparty from './cordova/android/thirdparty'
 import System from './cordova/android/system'
 import Location from './cordova/android/location'
 import BarcodeScanner from './cordova/android/barcodescanner'
+import Common from './common/Common'
 import WX from './weixin/wx'
 // 引入axios用于请求签名等
 import axios from 'axios'
@@ -60,7 +61,7 @@ function getWeixinSign() {
     'chooseCard',
     'openCard'
   ]
-  let timestamp = Date.parse(new Date()) / 1000
+  let timestamp = new Date().valueOf()
   let nonceStr = 'Wm3WZYTPz0wzccnW'
   let queryObj = {
     noncestr: nonceStr,
@@ -153,6 +154,11 @@ nativeAPIPlugin.install = function(Vue, options) {
     // 对于异常进行输出
     console.dir(err)
     throw err
+  })
+  // 公共组件注入
+  Vue.prototype.$Common = deviceReadyEvent.then(() => {
+    let common = new Common(plat)
+    return common instanceof Common ? common : undefined
   })
   if (plat) {
     Vue.prototype.$Toast = deviceReadyEvent.then(() => {

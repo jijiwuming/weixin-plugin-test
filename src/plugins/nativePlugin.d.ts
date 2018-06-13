@@ -5,6 +5,7 @@ import Thirdparty from './cordova/android/thirdparty'
 import UI from './cordova/android/ui'
 import Location from './cordova/android/location'
 import BarcodeScanner from './cordova/android/barcodescanner'
+import Common from './common/Common'
 import WX from './weixin/wx'
 declare module 'vue/types/vue' {
   interface Vue {
@@ -15,5 +16,6 @@ declare module 'vue/types/vue' {
     $Location: Promise<Location>
     $BarcodeScanner: Promise<BarcodeScanner>
     $WX: Promise<WX>
+    $Common: Promise<Common>
   }
 }
