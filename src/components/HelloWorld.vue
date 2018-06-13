@@ -22,14 +22,14 @@ export default {
       common.share('莫失莫忘',
         '仙四的老歌送给老哥',
         'http://img1.imgtn.bdimg.com/it/u=1745875165,3906740002&fm=27&gp=0.jpg',
-        'http://test.jijiwuming.cn/test.html',
+        'https://test.jijiwuming.cn/test.html',
         () => { console.log('分享成功') },
         err => { console.dir(err) },
         () => { console.log('取消分享') },
         () => { console.log('完成分享') },
         'AppMessage',
         'music',
-        'http://test.jijiwuming.cn/test.mp3'
+        'https://test.jijiwuming.cn/test.mp3'
       )
     })
     /*

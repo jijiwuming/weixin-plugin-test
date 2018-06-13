@@ -70,7 +70,7 @@ function getWeixinSign() {
   }
   return new Promise((resolve, reject) => {
     axios
-      .get(`http://123.206.107.185/sign${paramsToUrl(queryObj)}`)
+      .get(`https://test.jijiwuming.cn/sign${paramsToUrl(queryObj)}`)
       .then(res => {
         let data = res.data
         wx.config({
