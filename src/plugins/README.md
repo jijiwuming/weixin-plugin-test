@@ -17,7 +17,7 @@ import nativeAPIPlugin from '@/plugins/nativePlugin'
 // 请在生产环境中开启使用原生插件
 if (process.env.NODE_ENV === 'production') {
   Vue.use(nativeAPIPlugin, {
-    platform: true
+    platform: true // true为cordova端，false为微信端
   })
 }
 ```
@@ -45,6 +45,28 @@ export default {
           console.log(str)
         })
       }
+    })
+    // 添加Common，封装了cordova和微信的公用方法
+    this.$Common.then(common => {
+      common.share(
+        'test',
+        '附加说明',
+        'http://img1.imgtn.bdimg.com/it/u=1745875165,3906740002&fm=27&gp=0.jpg',
+        'http://test.jijiwuming.cn/test.html',
+        () => {
+          console.log('分享成功')
+        },
+        err => {
+          console.dir(err)
+        },
+        () => {
+          console.log('取消分享')
+        },
+        () => {
+          console.log('完成分享')
+        },
+        'AppMessage'
+      )
     })
   }
 }
@@ -76,10 +98,10 @@ window.onPause = () => {
 
 - 添加了微信 JS SDK 的接口支持
 
+- 封装公用的插件方法到 common 中
+
 ## TODO
 
 - 其他原生插件的加入
-
-- 封装公共的插件方法到 common 中
 
 - 实际使用时需要修改微信的签名获取方法，现采用测试账号和服务器配置
