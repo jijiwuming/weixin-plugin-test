@@ -24,8 +24,8 @@ export default {
         nonceStr: 'sduhi123',
         cardType: 'GROUPON'
       }
-      axios.get(`http://test.jijiwuming.cn/ticket/sign${paramsToUrl(queryObj)}`).then(sign => {
-        console.log(sign)
+      axios.get(`http://test.jijiwuming.cn/ticket/sign${paramsToUrl(queryObj)}`).then(res => {
+        let sign = res.data
         wx.chooseCard(undefined, queryObj.cardType, undefined, queryObj.timestamp, queryObj.nonceStr, undefined, sign, res => {
           console.log('成功回调')
           console.dir(res)
